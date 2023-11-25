@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Algorytmy Metaheurystyczne</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* Twoje style CSS */
+     .custom-img-size {
+        max-width: 80%; /* Zwiększona maksymalna szerokość obrazu */
+        height: auto; /* Zachowanie proporcji obrazu */
+        display: block; /* Pozwala na wyśrodkowanie obrazu */
+        margin: auto; /* Automatyczne wyśrodkowanie */
+    }
+        .navbar-custom {
+            background-color: #007bff; /* Kolor tła paska nawigacyjnego */
+        }
+
+        .navbar-custom .navbar-brand {
+            color: #fff; /* Kolor tekstu logo */
+        }
+
+        .navbar-custom .nav-link {
+            color: #fff; /* Kolor tekstów linków */
+        }
+
+        .container-custom {
+            padding-top: 20px; /* Odstęp od góry */
+        }
+        .form-section, .result-section {
+            display: flex; /* Zapewnia elastyczność układu */
+            flex-direction: column; /* Ustawia kierunek elementów w kolumnie */
+            justify-content: space-between; /* Rozkłada elementy równomiernie */
+            height: 100%; /* Zapewnia, że obie sekcje mają taką samą wysokość */
+        }
+
+        .result-section img {
+            max-width: 100%; /* Maksymalna szerokość obrazu */
+            height: auto; /* Zachowanie proporcji obrazu */
+        }
+    </style>
+</head>
+<body>
+    {% include 'navbar.html' %}
+    <div class="container mt-4">
+        <h1>Algorytmy Metaheurystyczne</h1>
+        {% if user_logged_in %}
+            <p class="lead">Jesteś zalogowany jako: {{ user_email }}</p>
+            <div class="row">
+                <!-- Sekcja Formularza -->
+                <div class="col-md-6 form-section">
+                    <form id="pso-form">
+                        <div class="form-group">
+                            <label for="num_particles">Liczba cząstek:</label>
+                            <input type="number" class="form-control" id="num_particles" name="num_particles" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="maxiter">Liczba iteracji:</label>
+                            <input type="number" class="form-control" id="maxiter" name="maxiter" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="function">Wybierz funkcję:</label>
+                            <select id="function" class="form-control" name="function">
+                                <option value="rosenbrock">Funkcja Rosenbrocka</option>
+                                <option value="drop_wave">Funkcja Drop-Wave</option>
+                                <!-- Możesz dodać więcej funkcji tutaj -->
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Uruchom PSO</button>
+                    </form>
+                </div>
+
+                <!-- Sekcja Wyników -->
+                <div class="col-md-6 result-section">
+                    <div id="pso-result" class="w-100"></div>
+                </div>
+            </div>
+        {% else %}
+            <img src="{{ url_for('static', filename='main_page.png') }}" class="img-fluid custom-img-size" alt="Opis obrazu">
+        {% endif %}
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="{{ url_for('static', filename='index.js') }}"></script>
+
+
+</body>
+</html>
