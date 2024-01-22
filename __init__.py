@@ -5,12 +5,15 @@ from flask_sqlalchemy import SQLAlchemy
 import os
 
 import pymysql
+from API import api_bp
 
 db = SQLAlchemy()
 pymysql.install_as_MySQLdb()
 
 def create_app():
+
     app = Flask(__name__)
+    app.register_blueprint(api_bp)
 
     # Konfiguracja aplikacji
     app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY') or 'tajny_domyślny_klucz'
